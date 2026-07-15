@@ -12,11 +12,15 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden;position:relative}
 h1,h2,h3{font-family:'Sora',sans-serif;font-weight:700;line-height:1.2}
 .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
 .fade{opacity:0;transform:translateY(24px);transition:opacity .8s ease, transform .8s ease}
 .fade.show{opacity:1;transform:translateY(0)}
+
+#pCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55}
+.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(26,60,110,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(26,60,110,.05) 1px,transparent 1px);background-size:46px 46px}
+body>*:not(#pCanvas):not(.grid-bg){position:relative;z-index:1}
 
 header{position:sticky;top:0;z-index:50;background:rgba(245,245,240,.9);backdrop-filter:blur(8px);border-bottom:1px solid rgba(20,24,31,.08)}
 .hd{display:flex;align-items:center;justify-content:space-between;padding:18px 24px}
@@ -32,7 +36,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(245,245,240,.9);backdrop
 .cta{display:inline-block;background:var(--cta);color:#fff;border:none;padding:15px 32px;font-size:15px;font-weight:600;cursor:pointer;transition:all .3s;border-radius:2px}
 .cta:hover{background:var(--cta-d);transform:translateY(-2px)}
 .hero-showcase{flex:1;min-width:280px;display:flex;justify-content:center}
-.showcase-frame{width:320px;height:320px;border-radius:16px;overflow:hidden;perspective:900px}
+.showcase-frame{width:320px;height:320px;border-radius:16px;overflow:hidden;perspective:900px;border:1px solid rgba(232,163,61,.3);box-shadow:0 0 40px rgba(232,163,61,.15)}
 .showcase-frame img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
 .showcase-frame:hover img{transform:rotateY(10deg) rotateX(4deg) scale(1.04)}
 
@@ -95,6 +99,9 @@ footer{background:var(--ink);color:#B9BEC7;padding:56px 24px 28px}
 </head>
 <body>
 
+<canvas id="pCanvas"></canvas>
+<div class="grid-bg"></div>
+
 <header>
   <div class="hd wrap">
     <div class="logo">KitPro</div>
@@ -111,7 +118,7 @@ footer{background:var(--ink);color:#B9BEC7;padding:56px 24px 28px}
     </div>
     <div class="hero-showcase fade">
       <div class="showcase-frame">
-        <img src="https://picsum.photos/seed/kitprodutorevenda/500/500" alt="Kit de produtos para revenda">
+        <img src="https://loremflickr.com/500/500/cardboard,box,packaging" alt="Kit de produtos para revenda">
       </div>
     </div>
   </div>
@@ -134,11 +141,11 @@ footer{background:var(--ink);color:#B9BEC7;padding:56px 24px 28px}
 
   <div class="carousel-wrap">
     <div class="carousel" id="carousel">
-      <div class="prod-card fade"><img src="https://picsum.photos/seed/kititem1/300/200" alt="Kit item"><div class="prod-info"><h4>Kit Essencial</h4></div><div class="prod-price"><span>preço sugerido</span><strong>R$ 89,90</strong></div></div>
-      <div class="prod-card fade"><img src="https://picsum.photos/seed/kititem2/300/200" alt="Kit item"><div class="prod-info"><h4>Kit Premium</h4></div><div class="prod-price"><span>preço sugerido</span><strong>R$ 149,90</strong></div></div>
-      <div class="prod-card fade"><img src="https://picsum.photos/seed/kititem3/300/200" alt="Kit item"><div class="prod-info"><h4>Kit Duo</h4></div><div class="prod-price"><span>preço sugerido</span><strong>R$ 119,90</strong></div></div>
-      <div class="prod-card fade"><img src="https://picsum.photos/seed/kititem4/300/200" alt="Kit item"><div class="prod-info"><h4>Kit Família</h4></div><div class="prod-price"><span>preço sugerido</span><strong>R$ 199,90</strong></div></div>
-      <div class="prod-card fade"><img src="https://picsum.photos/seed/kititem5/300/200" alt="Kit item"><div class="prod-info"><h4>Kit Especial</h4></div><div class="prod-price"><span>preço sugerido</span><strong>R$ 169,90</strong></div></div>
+      <div class="prod-card fade"><img src="https://loremflickr.com/300/200/giftbox,ribbon" alt="Kit item"><div class="prod-info"><h4>Kit Essencial</h4></div><div class="prod-price"><span>preço sugerido</span><strong>R$ 89,90</strong></div></div>
+      <div class="prod-card fade"><img src="https://loremflickr.com/300/200/luxury,packaging" alt="Kit item"><div class="prod-info"><h4>Kit Premium</h4></div><div class="prod-price"><span>preço sugerido</span><strong>R$ 149,90</strong></div></div>
+      <div class="prod-card fade"><img src="https://loremflickr.com/300/200/shelf,products,retail" alt="Kit item"><div class="prod-info"><h4>Kit Duo</h4></div><div class="prod-price"><span>preço sugerido</span><strong>R$ 119,90</strong></div></div>
+      <div class="prod-card fade"><img src="https://loremflickr.com/300/200/warehouse,boxes" alt="Kit item"><div class="prod-info"><h4>Kit Família</h4></div><div class="prod-price"><span>preço sugerido</span><strong>R$ 199,90</strong></div></div>
+      <div class="prod-card fade"><img src="https://loremflickr.com/300/200/delivery,parcel" alt="Kit item"><div class="prod-info"><h4>Kit Especial</h4></div><div class="prod-price"><span>preço sugerido</span><strong>R$ 169,90</strong></div></div>
     </div>
     <div class="carousel-arrows">
       <button onclick="document.getElementById('carousel').scrollBy({left:-240,behavior:'smooth'})">←</button>
@@ -206,6 +213,40 @@ footer{background:var(--ink);color:#B9BEC7;padding:56px 24px 28px}
 
 <script>
 (function(){
+  const canvas=document.getElementById('pCanvas');
+  const ctx=canvas.getContext('2d');
+  let w,h,pts=[];
+  function resize(){w=canvas.width=window.innerWidth;h=canvas.height=document.body.scrollHeight}
+  resize();
+  window.addEventListener('resize',resize);
+  const N=Math.min(70,Math.floor((window.innerWidth*window.innerHeight)/18000));
+  for(let i=0;i<N;i++){
+    pts.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35});
+  }
+  function step(){
+    ctx.clearRect(0,0,w,h);
+    for(const p of pts){
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0||p.x>w)p.vx*=-1;
+      if(p.y<0||p.y>h)p.vy*=-1;
+    }
+    for(let i=0;i<pts.length;i++){
+      for(let j=i+1;j<pts.length;j++){
+        const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.sqrt(dx*dx+dy*dy);
+        if(d<130){
+          ctx.strokeStyle='rgba(232,163,61,'+(0.12*(1-d/130))+')';
+          ctx.lineWidth=1;
+          ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.stroke();
+        }
+      }
+      ctx.fillStyle='rgba(26,60,110,0.45)';
+      ctx.beginPath();ctx.arc(pts[i].x,pts[i].y,2,0,Math.PI*2);ctx.fill();
+    }
+    requestAnimationFrame(step);
+  }
+  step();
+  setInterval(resize,3000);
+
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')}),{threshold:.15});
   document.querySelectorAll('.fade').forEach(el=>io.observe(el));
 
@@ -214,8 +255,8 @@ footer{background:var(--ink);color:#B9BEC7;padding:56px 24px 28px}
     es.forEach(e=>{
       if(e.isIntersecting){
         const el=e.target, target=+el.dataset.target, suf=el.dataset.suffix||'', pre=el.dataset.prefix||'';
-        let cur=0; const step=Math.max(1,Math.ceil(target/60));
-        const iv=setInterval(()=>{cur+=step;if(cur>=target){cur=target;clearInterval(iv)}el.textContent=pre+cur.toLocaleString('pt-BR')+suf},20);
+        let cur=0; const stp=Math.max(1,Math.ceil(target/60));
+        const iv=setInterval(()=>{cur+=stp;if(cur>=target){cur=target;clearInterval(iv)}el.textContent=pre+cur.toLocaleString('pt-BR')+suf},20);
         mio.unobserve(el);
       }
     });
