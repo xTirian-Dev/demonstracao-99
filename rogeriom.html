@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sua máquina de clientes nunca dorme</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0E14; --card:#131822; --ink:#E8ECF1; --neon:#00E5A0; --violet:#6C5CE7; --alert:#FF6B4A;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden;position:relative}
+h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;line-height:1.15}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+.fade{opacity:0;transform:translateY(24px);transition:opacity .8s ease, transform .8s ease}
+.fade.show{opacity:1;transform:translateY(0)}
+
+.grid-bg{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(0,229,160,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,160,.05) 1px,transparent 1px);background-size:44px 44px;animation:scroll-bg 18s linear infinite}
+@keyframes scroll-bg{0%{background-position:0 0}100%{background-position:44px 44px}}
+
+header{position:sticky;top:0;z-index:50;background:rgba(11,14,20,.8);backdrop-filter:blur(10px);border-bottom:1px solid rgba(232,236,241,.08)}
+.hd{display:flex;align-items:center;justify-content:space-between;padding:18px 24px}
+.logo{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700}
+.logo span{color:var(--neon)}
+.hd-btn{border:1px solid var(--neon);color:var(--neon);background:none;padding:8px 18px;border-radius:8px;font-size:14px;cursor:pointer;transition:all .3s}
+.hd-btn:hover{background:var(--neon);color:#04120c;box-shadow:0 0 20px rgba(0,229,160,.4)}
+
+.hero{padding:100px 24px 70px;text-align:center}
+.hero h1{font-size:clamp(32px,5vw,56px);max-width:780px;margin:0 auto 22px}
+.hero h1 .hl{color:var(--neon)}
+.hero p{font-size:17px;max-width:600px;margin:0 auto 36px;color:#A9B2C0}
+.cta{display:inline-block;background:var(--neon);color:#04120c;border:none;padding:16px 34px;border-radius:10px;font-size:16px;font-weight:600;cursor:pointer;transition:all .3s;box-shadow:0 0 24px rgba(0,229,160,.25)}
+.cta:hover{transform:translateY(-2px);box-shadow:0 0 36px rgba(0,229,160,.5)}
+.cta-alt{background:var(--alert);box-shadow:0 0 24px rgba(255,107,74,.25)}
+.cta-alt:hover{box-shadow:0 0 36px rgba(255,107,74,.5)}
+
+.dash{max-width:760px;margin:60px auto 0;background:var(--card);border:1px solid rgba(232,236,241,.08);border-radius:16px;padding:22px;text-align:left;box-shadow:0 30px 70px -30px rgba(0,229,160,.15)}
+.dash-top{display:flex;gap:8px;margin-bottom:16px}
+.dot{width:10px;height:10px;border-radius:50%;background:#3a4150}
+.dash-list{font-family:'Space Grotesk',monospace;font-size:13px}
+.dash-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(232,236,241,.06);opacity:0;animation:rowIn .5s forwards}
+.dash-row .co{color:var(--ink)}
+.dash-row .st{color:var(--neon);font-size:12px}
+@keyframes rowIn{to{opacity:1}}
+
+section{padding:80px 24px}
+.section-title{font-size:clamp(24px,4vw,36px);text-align:center;max-width:700px;margin:0 auto 18px}
+.section-sub{text-align:center;max-width:620px;margin:0 auto 46px;color:#A9B2C0;font-size:16px}
+
+.sim-card{max-width:600px;margin:0 auto;background:var(--card);border:1px solid rgba(0,229,160,.15);border-radius:18px;padding:36px}
+.sim-input{display:flex;gap:10px;margin-bottom:20px}
+.sim-input input{flex:1;background:#0F141C;border:1px solid rgba(232,236,241,.12);color:var(--ink);padding:13px 16px;border-radius:10px;font-family:inherit;font-size:14px}
+.sim-btn{background:var(--neon);color:#04120c;border:none;padding:0 22px;border-radius:10px;font-weight:600;cursor:pointer;font-size:14px}
+.sim-loading{display:none;text-align:center;padding:20px;color:var(--neon);font-size:13px;letter-spacing:.5px}
+.sim-results{display:none}
+.sim-lead{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:#0F141C;border-radius:10px;margin-bottom:8px;font-size:13px;opacity:0;animation:rowIn .4s forwards}
+.sim-lead .badge{background:rgba(0,229,160,.12);color:var(--neon);padding:3px 10px;border-radius:6px;font-size:11px}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;max-width:1000px;margin:0 auto}
+.step{background:var(--card);border:1px solid rgba(232,236,241,.06);border-radius:16px;padding:30px}
+.step .n{font-family:'Space Grotesk',sans-serif;font-size:28px;color:var(--violet);font-weight:700;margin-bottom:12px}
+.step p{font-size:14px;color:#A9B2C0}
+
+.metrics{display:flex;justify-content:center;gap:60px;max-width:900px;margin:60px auto 0;flex-wrap:wrap;text-align:center}
+.metric-n{font-family:'Space Grotesk',sans-serif;font-size:34px;font-weight:700;color:var(--neon)}
+.metric-l{font-size:13px;color:#A9B2C0;margin-top:4px}
+
+.form-section{background:linear-gradient(180deg,rgba(108,92,231,.05),transparent)}
+.form-card{max-width:520px;margin:0 auto;background:var(--card);border:1px solid rgba(232,236,241,.08);border-radius:18px;padding:42px}
+.form-card input{width:100%;padding:13px 16px;border:1px solid rgba(232,236,241,.12);border-radius:10px;font-family:inherit;font-size:15px;margin-bottom:16px;background:#0F141C;color:var(--ink)}
+.form-card label{font-size:13px;color:#A9B2C0;display:block;margin-bottom:6px}
+.form-card button{width:100%}
+
+.urgency{max-width:520px;margin:40px auto 0;text-align:center;border-top:1px dashed rgba(232,236,241,.15);padding-top:32px}
+.urgency p{color:var(--alert);font-size:14px;margin-bottom:14px;font-weight:500}
+.countdown{display:flex;justify-content:center;gap:14px}
+.cd-box{background:var(--card);border:1px solid rgba(255,107,74,.25);border-radius:10px;padding:12px 16px;min-width:64px}
+.cd-num{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--alert)}
+.cd-label{font-size:10px;color:#A9B2C0;text-transform:uppercase}
+
+footer{text-align:center;padding:36px 24px;font-size:13px;color:#6B7280;border-top:1px solid rgba(232,236,241,.08)}
+footer a{color:#6B7280;text-decoration:none;margin:0 8px}
+
+@media(max-width:720px){.steps{grid-template-columns:1fr}.metrics{gap:32px}.countdown{gap:8px}.cd-box{min-width:52px;padding:10px}}
+
+.mdl-ov{position:fixed;inset:0;background:rgba(11,14,20,.75);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:9999;padding:24px}
+.mdl{background:var(--card);border:1px solid rgba(0,229,160,.2);border-radius:18px;padding:40px;max-width:420px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.mdl h3{font-size:19px;margin-bottom:14px}
+.mdl p{font-size:14px;color:#A9B2C0;margin-bottom:24px}
+.mdl a{display:inline-block;background:var(--neon);color:#04120c;padding:13px 28px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600}
+.mdl-close{margin-top:16px;background:none;border:none;color:#6B7280;font-size:13px;cursor:pointer;text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<header>
+  <div class="hd wrap">
+    <div class="logo">prospect<span>ia</span>.</div>
+    <button class="hd-btn" onclick="document.getElementById('contato').scrollIntoView()">Falar com vendas</button>
+  </div>
+</header>
+
+<section class="hero">
+  <h1 class="fade">Sua <span class="hl">máquina de clientes</span> nunca dorme.</h1>
+  <p class="fade">Digite o nicho. A IA prospecta, atualiza sua planilha e aborda seus contatos todos os dias — sozinha, enquanto você foca em fechar vendas.</p>
+  <button class="cta fade" onclick="document.getElementById('simulador').scrollIntoView()">Quero automatizar minha prospecção</button>
+
+  <div class="dash fade">
+    <div class="dash-top"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="dash-list" id="liveDash"></div>
+  </div>
+</section>
+
+<section id="simulador">
+  <h2 class="section-title fade">Prospectar manualmente consome seu dia</h2>
+  <p class="section-sub fade">Buscar contato, validar, abordar, atualizar planilha, repetir — e ainda assim você fecha menos do que poderia. Nossa IA faz esse ciclo inteiro sozinha, todos os dias, em qualquer nicho que você escolher.</p>
+  <div class="sim-card fade">
+    <div class="sim-input">
+      <input type="text" id="nichoInput" placeholder="Digite seu nicho (ex: dentistas, advogados, e-commerce)">
+      <button class="sim-btn" id="simBtn">Simular prospecção</button>
+    </div>
+    <div class="sim-loading" id="simLoading">Analisando nicho e validando contatos...</div>
+    <div class="sim-results" id="simResults"></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title fade">Como funciona</h2>
+  <div class="steps">
+    <div class="step fade"><div class="n">01</div><p>Escolha o nicho que deseja prospectar</p></div>
+    <div class="step fade"><div class="n">02</div><p>A IA prospecta e valida os contatos automaticamente</p></div>
+    <div class="step fade"><div class="n">03</div><p>Sua planilha é atualizada e os leads são abordados sozinhos</p></div>
+  </div>
+  <div class="metrics fade">
+    <div><div class="metric-n" data-target="2400">0</div><div class="metric-l">leads prospectados</div></div>
+    <div><div class="metric-n" data-target="94" data-suffix="%">0</div><div class="metric-l">taxa de contato válido</div></div>
+    <div><div class="metric-n" data-target="24" data-suffix="/7">0</div><div class="metric-l">em operação</div></div>
+  </div>
+</section>
+
+<section class="form-section" id="contato">
+  <h2 class="section-title fade">Quero minha demonstração gratuita</h2>
+  <div class="form-card fade">
+    <form id="leadForm">
+      <label>Nome</label>
+      <input type="text" placeholder="Seu nome" required>
+      <label>WhatsApp</label>
+      <input type="tel" placeholder="(00) 00000-0000" required>
+      <label>Nicho de atuação</label>
+      <input type="text" placeholder="Ex: clínicas odontológicas" required>
+      <button type="submit" class="cta">Quero minha demonstração gratuita</button>
+    </form>
+    <div class="urgency">
+      <p>Vagas limitadas para onboarding este mês</p>
+      <div class="countdown">
+        <div class="cd-box"><div class="cd-num" id="cd-d">00</div><div class="cd-label">dias</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-h">00</div><div class="cd-label">horas</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-m">00</div><div class="cd-label">min</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 prospectia. Todos os direitos reservados.</p>
+  <p><a href="#">Termos</a> · <a href="#">Privacidade</a></p>
+</footer>
+
+<div class="mdl-ov" id="mdlOv">
+  <div class="mdl">
+    <h3>Este é um protótipo exclusivo</h3>
+    <p>Este layout foi desenvolvido por Matheus como demonstração exclusiva. Para ativar as funcionalidades reais no seu domínio, clique abaixo para iniciarmos seu projeto.</p>
+    <a href="https://wa.me/5500000000000" target="_blank" rel="noopener">Iniciar meu projeto</a>
+    <br>
+    <button class="mdl-close" onclick="document.getElementById('mdlOv').style.display='none'">Fechar</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')}),{threshold:.15});
+  document.querySelectorAll('.fade').forEach(el=>io.observe(el));
+
+  const liveCos=["Clínica OdontoVida","Advocacia Souza & Lima","EcoModa E-commerce","Studio Fit Pilates","Grupo Construtec","Consultório Dr. Alan","Loja TechPrime","Imobiliária Horizonte"];
+  const liveDash=document.getElementById('liveDash');
+  let li=0;
+  function addRow(){
+    const co=liveCos[li%liveCos.length];
+    const time=new Date();
+    const hh=String(time.getHours()).padStart(2,'0'), mm=String(time.getMinutes()).padStart(2,'0');
+    const row=document.createElement('div');
+    row.className='dash-row';
+    row.innerHTML='<span class="co">'+co+'</span><span class="st">Abordado · '+hh+':'+mm+'</span>';
+    liveDash.appendChild(row);
+    if(liveDash.children.length>6)liveDash.removeChild(liveDash.firstChild);
+    li++;
+  }
+  addRow();
+  setInterval(addRow,2600);
+
+  document.getElementById('simBtn').addEventListener('click',()=>{
+    const nicho=document.getElementById('nichoInput').value.trim()||'seu nicho';
+    const loading=document.getElementById('simLoading'), results=document.getElementById('simResults');
+    results.style.display='none';results.innerHTML='';
+    loading.style.display='block';
+    setTimeout(()=>{
+      loading.style.display='none';
+      results.style.display='block';
+      const names=[nicho+" Premium",nicho+" Center",nicho+" Express",nicho+" Grupo",nicho+" Solutions"];
+      names.forEach((n,i)=>{
+        const d=document.createElement('div');
+        d.className='sim-lead';
+        d.style.animationDelay=(i*0.12)+'s';
+        const t=new Date(Date.now()-i*60000);
+        d.innerHTML='<span>'+n+'</span><span class="badge">Abordado '+String(t.getHours()).padStart(2,'0')+':'+String(t.getMinutes()).padStart(2,'0')+'</span>';
+        results.appendChild(d);
+      });
+    },1400);
+  });
+
+  const metrics=document.querySelectorAll('.metric-n');
+  const mio=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        const el=e.target, target=+el.dataset.target, suf=el.dataset.suffix||'';
+        let cur=0; const step=Math.max(1,Math.ceil(target/60));
+        const iv=setInterval(()=>{cur+=step;if(cur>=target){cur=target;clearInterval(iv)}el.textContent=cur.toLocaleString('pt-BR')+suf},20);
+        mio.unobserve(el);
+      }
+    });
+  },{threshold:.5});
+  metrics.forEach(m=>mio.observe(m));
+
+  let remaining=3*86400+14*3600+22*60;
+  function tickCd(){
+    const d=Math.floor(remaining/86400), h=Math.floor((remaining%86400)/3600), m=Math.floor((remaining%3600)/60);
+    document.getElementById('cd-d').textContent=String(d).padStart(2,'0');
+    document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
+    if(remaining>0)remaining--;
+  }
+  tickCd();
+  setInterval(tickCd,60000);
+
+  function showModal(){document.getElementById('mdlOv').style.display='flex'}
+  document.getElementById('leadForm').addEventListener('submit',e=>{e.preventDefault();showModal()});
+
+  class WM extends HTMLElement{
+    connectedCallback(){
+      const r=this.attachShadow({mode:'open'});
+      const s=document.createElement('style');
+      s.textContent='.g{position:fixed;inset:-50%;z-index:99999;pointer-events:none;display:grid;grid-template-columns:repeat(6,1fr);transform:rotate(-28deg);opacity:.07}.g span{font-family:sans-serif;font-size:13px;color:#00E5A0;white-space:nowrap;padding:40px}';
+      const g=document.createElement('div');g.className='g';
+      for(let i=0;i<60;i++){const sp=document.createElement('span');sp.textContent='DEMONSTRAÇÃO EXCLUSIVA — MATHEUS';g.appendChild(sp)}
+      r.appendChild(s);r.appendChild(g);
+    }
+  }
+  customElements.define('wm-el',WM);
+  document.body.appendChild(document.createElement('wm-el'));
+})();
+</script>
+</body>
+</html>
