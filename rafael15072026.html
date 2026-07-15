@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cada detalhe da sua festa, do jeito que ela merece</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAF8F5; --ink:#2B2420; --gold:#B8860B; --bordeaux:#7C3B2E; --cta:#1F5C4F; --cta-d:#164338;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden}
+h1,h2,h3{font-family:'Playfair Display',serif;font-weight:600;line-height:1.2}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+.fade{opacity:0;transform:translateY(24px);transition:opacity .8s ease, transform .8s ease}
+.fade.show{opacity:1;transform:translateY(0)}
+.divider{width:60px;height:2px;background:var(--gold);margin:18px auto}
+
+header{position:sticky;top:0;z-index:50;background:rgba(250,248,245,.9);backdrop-filter:blur(8px);border-bottom:1px solid rgba(43,36,32,.08)}
+.hd{display:flex;align-items:center;justify-content:space-between;padding:18px 24px}
+.logo{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;color:var(--bordeaux)}
+.hd-links{display:flex;align-items:center;gap:24px}
+.hd-links a{color:var(--ink);text-decoration:none;font-size:14px}
+.hd-btn{border:1px solid var(--gold);color:var(--gold);background:none;padding:8px 18px;border-radius:4px;font-size:14px;cursor:pointer;transition:all .3s}
+.hd-btn:hover{background:var(--gold);color:#fff}
+
+.hero{position:relative;height:82vh;min-height:520px;overflow:hidden;display:flex;align-items:center}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.08)}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(43,36,32,.35),rgba(43,36,32,.55))}
+.hero-content{position:relative;z-index:1;color:#fff;max-width:680px;padding:0 24px}
+.hero h1{font-size:clamp(30px,4.5vw,50px);margin-bottom:18px}
+.hero p{font-size:17px;max-width:520px;margin-bottom:34px;color:#F0EBE4}
+.cta{display:inline-block;background:var(--cta);color:#fff;border:none;padding:15px 32px;border-radius:4px;font-size:15px;font-weight:500;cursor:pointer;transition:all .3s;letter-spacing:.3px}
+.cta:hover{background:var(--cta-d);transform:translateY(-2px)}
+
+section{padding:90px 24px}
+.section-title{font-size:clamp(26px,3.6vw,38px);text-align:center;max-width:700px;margin:0 auto}
+.section-sub{text-align:center;max-width:600px;margin:16px auto 50px;color:#5c534a;font-size:16px}
+
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;max-width:1100px;margin:0 auto}
+.cat-card{position:relative;border-radius:8px;overflow:hidden;cursor:pointer;box-shadow:0 8px 24px rgba(43,36,32,.1);aspect-ratio:3/4}
+.cat-card img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.cat-card:hover img{transform:scale(1.08)}
+.cat-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(43,36,32,0) 40%,rgba(43,36,32,.85));display:flex;flex-direction:column;justify-content:flex-end;padding:20px;color:#fff}
+.cat-overlay h3{font-size:18px;margin-bottom:6px}
+.cat-overlay p{font-size:12px;color:#E8E1D8;margin-bottom:10px;opacity:.9}
+.cat-link{font-size:12px;color:var(--gold);opacity:0;transform:translateY(8px);transition:all .35s}
+.cat-card:hover .cat-link{opacity:1;transform:translateY(0)}
+
+.diff-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;max-width:1000px;margin:0 auto 70px}
+.diff-item{text-align:center}
+.diff-icon{width:52px;height:52px;border-radius:50%;background:rgba(184,134,11,.12);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:20px;color:var(--gold)}
+.diff-item p{font-size:14px;color:#5c534a}
+
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1000px;margin:0 auto}
+.testi-card{background:#fff;border-radius:8px;padding:28px;box-shadow:0 6px 20px rgba(43,36,32,.08);border-top:2px solid var(--gold)}
+.testi-card p{font-size:14px;color:#4a423a;margin-bottom:16px;font-style:italic}
+.testi-name{font-size:13px;font-weight:600;color:var(--bordeaux)}
+.testi-type{font-size:12px;color:#8a7f74}
+
+.form-section{background:linear-gradient(180deg,rgba(184,134,11,.05),transparent)}
+.form-card{max-width:540px;margin:0 auto;background:#fff;border-radius:10px;padding:44px;box-shadow:0 10px 40px rgba(43,36,32,.1)}
+.form-card input,.form-card select{width:100%;padding:13px 16px;border:1px solid rgba(43,36,32,.15);border-radius:6px;font-family:inherit;font-size:15px;margin-bottom:16px;background:#fdfcfa}
+.form-card label{font-size:13px;color:#7a7168;display:block;margin-bottom:6px}
+.form-card button{width:100%}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+footer{text-align:center;padding:36px 24px;font-size:13px;color:#8a8178;border-top:1px solid rgba(43,36,32,.08)}
+footer a{color:#8a8178;text-decoration:none;margin:0 8px}
+
+.wa-float{position:fixed;bottom:26px;right:26px;width:58px;height:58px;border-radius:50%;background:var(--cta);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:200;box-shadow:0 8px 24px rgba(31,92,79,.4)}
+.wa-float svg{width:28px;height:28px;fill:#fff}
+.wa-float::before{content:'';position:absolute;inset:0;border-radius:50%;background:var(--cta);animation:pulse 2s infinite}
+@keyframes pulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.6);opacity:0}}
+
+@media(max-width:900px){.cat-grid{grid-template-columns:repeat(2,1fr)}.diff-grid{grid-template-columns:repeat(2,1fr)}.testi-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.hd-links{display:none}}
+
+.modal-item{position:fixed;inset:0;background:rgba(43,36,32,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:400;padding:24px}
+.modal-item-inner{background:#fff;border-radius:10px;padding:34px;max-width:400px;width:100%}
+.modal-item-inner h3{font-size:19px;margin-bottom:16px;color:var(--bordeaux)}
+.modal-item-inner ul{list-style:none;margin-bottom:20px}
+.modal-item-inner li{padding:10px 0;border-bottom:1px solid rgba(43,36,32,.08);font-size:14px}
+.modal-item-close{background:none;border:1px solid var(--ink);padding:10px 20px;border-radius:4px;cursor:pointer;font-size:13px}
+
+.mdl-ov{position:fixed;inset:0;background:rgba(43,36,32,.6);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:9999;padding:24px}
+.mdl{background:#fff;border-radius:12px;padding:40px;max-width:420px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.mdl h3{font-size:20px;margin-bottom:14px;color:var(--bordeaux)}
+.mdl p{font-size:14px;color:#5c554c;margin-bottom:24px}
+.mdl a{display:inline-block;background:var(--cta);color:#fff;padding:13px 28px;border-radius:6px;text-decoration:none;font-size:14px;font-weight:500}
+.mdl-close{margin-top:16px;background:none;border:none;color:#a39a90;font-size:13px;cursor:pointer;text-decoration:underline}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hd wrap">
+    <div class="logo">Mesa &amp; Festa</div>
+    <div class="hd-links">
+      <a href="#categorias">Catálogo completo</a>
+      <a href="#diferenciais">Diferenciais</a>
+    </div>
+    <button class="hd-btn" onclick="document.getElementById('orcamento').scrollIntoView()">Pedir orçamento</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-bg"><img src="https://picsum.photos/seed/tablesetting1/1600/1000" alt="Mesa posta elegante"></div>
+  <div class="hero-content">
+    <h1 class="fade">Cada detalhe da sua festa, do jeito que ela merece.</h1>
+    <p class="fade">Alugamos louças, talheres, taças e utensílios de mesa e cozinha para transformar qualquer evento em uma experiência memorável — sem o custo de comprar tudo.</p>
+    <button class="cta fade" onclick="document.getElementById('categorias').scrollIntoView()">Ver catálogo completo</button>
+  </div>
+</section>
+
+<section id="categorias">
+  <h2 class="section-title fade">Do jantar íntimo à grande celebração</h2>
+  <p class="section-sub fade">Temos a peça certa para cada momento.</p>
+  <div class="cat-grid">
+    <div class="cat-card fade" onclick="openItem('Louças e Pratos',['Prato raso porcelana branca','Prato de sobremesa borda dourada','Bowl fundo cerâmica','Travessa oval média'])">
+      <img src="https://picsum.photos/seed/loucaspratos/500/650" alt="Louças e pratos">
+      <div class="cat-overlay"><h3>Louças e Pratos</h3><p>Porcelana branca com detalhes dourados para eventos sofisticados.</p><span class="cat-link">Ver itens dessa categoria →</span></div>
+    </div>
+    <div class="cat-card fade" onclick="openItem('Talheres e Taças',['Jogo de talheres inox premium','Taça de vinho tinto cristal','Taça de espumante','Copo long drink'])">
+      <img src="https://picsum.photos/seed/talherestacas/500/650" alt="Talheres e taças">
+      <div class="cat-overlay"><h3>Talheres e Taças</h3><p>Conjuntos elegantes para brindar cada ocasião.</p><span class="cat-link">Ver itens dessa categoria →</span></div>
+    </div>
+    <div class="cat-card fade" onclick="openItem('Utensílios de Cozinha',['Panela de servir com rechaud','Jarra de suco vidro','Balde de gelo inox','Bandeja de servir madeira'])">
+      <img src="https://picsum.photos/seed/utensiliocozinha/500/650" alt="Utensílios de cozinha">
+      <div class="cat-overlay"><h3>Utensílios de Cozinha</h3><p>Praticidade e estilo para servir com excelência.</p><span class="cat-link">Ver itens dessa categoria →</span></div>
+    </div>
+    <div class="cat-card fade" onclick="openItem('Decoração de Mesa',['Sousplat dourado','Porta-guardanapo de metal','Vaso central floral','Toalha de linho bordô'])">
+      <img src="https://picsum.photos/seed/decoracaomesa/500/650" alt="Decoração de mesa">
+      <div class="cat-overlay"><h3>Decoração de Mesa</h3><p>O toque final que transforma qualquer mesa.</p><span class="cat-link">Ver itens dessa categoria →</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="diferenciais">
+  <h2 class="section-title fade">Por que escolher a gente</h2>
+  <div class="divider fade"></div>
+  <div class="diff-grid" style="margin-top:50px">
+    <div class="diff-item fade"><div class="diff-icon">✓</div><p>Entrega e retirada no local combinado</p></div>
+    <div class="diff-item fade"><div class="diff-icon">✓</div><p>Itens higienizados e conferidos antes de cada evento</p></div>
+    <div class="diff-item fade"><div class="diff-icon">✓</div><p>Atendimento próximo, do orçamento à devolução</p></div>
+    <div class="diff-item fade"><div class="diff-icon">✓</div><p>Peças variadas do simples ao sofisticado</p></div>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card fade"><p>"Tudo impecável, chegou antes do horário combinado e a louça era ainda mais linda pessoalmente."</p><div class="testi-name">Fernanda A.</div><div class="testi-type">Casamento · 120 convidados</div></div>
+    <div class="testi-card fade"><p>"Facilitou muito o aniversário da minha mãe. Recomendo de olhos fechados."</p><div class="testi-name">Marcos T.</div><div class="testi-type">Aniversário · 40 convidados</div></div>
+    <div class="testi-card fade"><p>"Atendimento super atencioso, ajudaram a escolher as peças certas pro tema da festa."</p><div class="testi-name">Juliana P.</div><div class="testi-type">Chá revelação · 60 convidados</div></div>
+  </div>
+</section>
+
+<section class="form-section" id="orcamento">
+  <h2 class="section-title fade">Conte pra gente sobre seu evento</h2>
+  <p class="section-sub fade">E receba um orçamento sob medida.</p>
+  <div class="form-card fade">
+    <form id="leadForm">
+      <label>Nome</label>
+      <input type="text" placeholder="Seu nome" required>
+      <label>WhatsApp</label>
+      <input type="tel" placeholder="(00) 00000-0000" required>
+      <div class="form-row">
+        <div>
+          <label>Tipo de evento</label>
+          <input type="text" placeholder="Ex: casamento, aniversário">
+        </div>
+        <div>
+          <label>Data do evento</label>
+          <input type="date">
+        </div>
+      </div>
+      <label>Quantidade de convidados aproximada</label>
+      <input type="number" placeholder="Ex: 80">
+      <button type="submit" class="cta">Solicitar orçamento</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Mesa &amp; Festa. Todos os direitos reservados.</p>
+  <p><a href="#">Termos</a> · <a href="#">Privacidade</a></p>
+</footer>
+
+<div class="wa-float" id="waFloat">
+  <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.3c1.4.8 3.1 1.3 4.8 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.5 0-3-.4-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3C4.4 15 4 13.5 4 12c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8z"/></svg>
+</div>
+
+<div class="modal-item" id="itemModal">
+  <div class="modal-item-inner">
+    <h3 id="itemTitle"></h3>
+    <ul id="itemList"></ul>
+    <button class="modal-item-close" onclick="document.getElementById('itemModal').style.display='none'">Fechar</button>
+  </div>
+</div>
+
+<div class="mdl-ov" id="mdlOv">
+  <div class="mdl">
+    <h3>Este é um protótipo exclusivo</h3>
+    <p>Este layout foi desenvolvido por Matheus como demonstração exclusiva. Para ativar as funcionalidades reais no seu domínio, clique abaixo para iniciarmos seu projeto.</p>
+    <a href="https://wa.me/5500000000000" target="_blank" rel="noopener">Iniciar meu projeto</a>
+    <br>
+    <button class="mdl-close" onclick="document.getElementById('mdlOv').style.display='none'">Fechar</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')}),{threshold:.15});
+  document.querySelectorAll('.fade').forEach(el=>io.observe(el));
+
+  window.openItem=function(title,items){
+    document.getElementById('itemTitle').textContent=title;
+    const ul=document.getElementById('itemList');
+    ul.innerHTML=items.map(i=>'<li>'+i+'</li>').join('');
+    document.getElementById('itemModal').style.display='flex';
+  };
+
+  function showModal(){document.getElementById('mdlOv').style.display='flex'}
+  document.getElementById('leadForm').addEventListener('submit',e=>{e.preventDefault();showModal()});
+  document.getElementById('waFloat').addEventListener('click',showModal);
+
+  class WM extends HTMLElement{
+    connectedCallback(){
+      const r=this.attachShadow({mode:'open'});
+      const s=document.createElement('style');
+      s.textContent='.g{position:fixed;inset:-50%;z-index:99999;pointer-events:none;display:grid;grid-template-columns:repeat(6,1fr);transform:rotate(-28deg);opacity:.07}.g span{font-family:sans-serif;font-size:13px;color:#000;white-space:nowrap;padding:40px}';
+      const g=document.createElement('div');g.className='g';
+      for(let i=0;i<60;i++){const sp=document.createElement('span');sp.textContent='DEMONSTRAÇÃO EXCLUSIVA — MATHEUS';g.appendChild(sp)}
+      r.appendChild(s);r.appendChild(g);
+    }
+  }
+  customElements.define('wm-el',WM);
+  document.body.appendChild(document.createElement('wm-el'));
+})();
+</script>
+</body>
+</html>
